@@ -2,8 +2,34 @@
 <html>
 	<head>
 		<meta charset="UTF-16">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>はたけ電鉄</title>
+		<style>
+			body, html {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			canvas {
+				display: block;
+			}
+		</style>
 	</head>
 	<body>
+		<canvas id="display"></canvas>
+		<script>
+			const display = document.getElementById('display');
+			const content = canvas.getContext('2d');
+
+			function resizeDisplay() {
+				display.width = window.innerWidth;
+				display.height = window.innerHeight;
+				context.fillStyle = 'lightblue';
+				context.fillRect(0, 0, display.width, display.height);
+			}
+
+			resizeDisplay();
+			window.addEventListener('resize', resizeDisplay);
+		</script>
 	</body>
 </html>
