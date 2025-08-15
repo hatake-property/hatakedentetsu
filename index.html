@@ -25,6 +25,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			height: 100vh;
 		}
 
 		#startButton {
@@ -40,8 +41,10 @@
 </head>
 
 <body>
-	<div class="screen active putCenter">
-		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
+	<div class="screen active">
+		<div class="putCenter">
+			<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
+		</div>
 	</div>
 	<div class="screen">
 	</div>
