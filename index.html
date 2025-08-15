@@ -21,31 +21,26 @@
 			display: block;
 		}
 
-		.startScreen {
-			background-color: white;
-		}
-
-		.startButton {
-			background-color: blue;
+		#startButton {
+			align-items: center;
+			background-color: darkgray;
 			border: black;
 			border-radius: 5px;
 			color: black;
 			cursor: pointer;
 			font-size: 18px;
-			padding: 10pt 20pt;
-		}
-
-		.playScreen {
-			background-color: rbg(0, 0, 89);
+			justify-content: center;
+			width: 30vw;
+			height: 15vw;
 		}
 	</style>
 </head>
 
 <body>
-	<div class="startScreen screen active">
-		<button class="startButton" onclick="switchScreen('playScreen')">スkタート</button>
+	<div class="screen active">
+		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
 	</div>
-	<div class="playScreen screen">
+	<div class="screen">
 	</div>
 
 	<script>
