@@ -21,23 +21,26 @@
 			display: block;
 		}
 
+		.putCenter {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 30vw;
+			height: 15vw;
+		}
+
 		#startButton {
 			background-color: darkgray;
 			border: none;
 			border-radius: 1vw;
 			color: black;
 			font-size: 18px;
-			
-			display: grid;
-			place-items: center;
-			width: 30vw;
-			height: 15vw;
 		}
 	</style>
 </head>
 
 <body>
-	<div class="screen active">
+	<div class="screen active putCenter">
 		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
 	</div>
 	<div class="screen">
