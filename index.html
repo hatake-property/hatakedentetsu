@@ -13,6 +13,10 @@
 			padding: 0;
 		}
 
+		.screen {
+			display: none;
+		}
+
 		.active {
 			display: block;
 		}
@@ -38,10 +42,10 @@
 </head>
 
 <body>
-	<div id="startScreen" class="active">
+	<div id="startScreen" class="screen active">
 		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
 	</div>
-	<div id="playScreen" class="active">
+	<div id="playScreen" class="screen">
 	</div>
 
 	<script>
