@@ -1,35 +1,57 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-16">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>はたけ電鉄</title>
-		<style>
-			body, html {
-				margin: 0;
-				padding: 0;
-				overflow: hidden;
-			}
-			canvas {
-				display: block;
-			}
-		</style>
-	</head>
-	<body>
-		<canvas id="display"></canvas>
-		<script>
-			const display = document.getElementById('display');
-			const content = canvas.getContext('2d');
 
-			function resizeDisplay() {
-				display.width = window.innerWidth;
-				display.height = window.innerHeight;
-				context.fillStyle = 'lightblue';
-				context.fillRect(0, 0, display.width, display.height);
-			}
+<html lang="ja">
 
-			resizeDisplay();
-			window.addEventListener('resize', resizeDisplay);
-		</script>
-	</body>
+<head>
+	<meta charset="utf-8">
+	<title>はたけ鉄道</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<style>
+		body {
+			font-family: 'Times New Roman', Times, serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.active {
+			display: block;
+		}
+
+		#startScreen {
+			background-color: white;
+		}
+
+		#startButton {
+			background-color: white;
+			border: black;
+			border-radius: 5px;
+			color: black;
+			cursor: pointer;
+			font-size: 18px;
+			padding: 10pt 20pt;
+		}
+
+		#playScreen {
+			background-color: blue;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="startScreen" class="active">
+		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
+	</div>
+	<div id="playScreen" class="active">
+	</div>
+
+	<script>
+		function switchScreen(screenId) {
+			document.querySelectorAll('.screen').forEach(screen => {
+				screen.classList.remove('active');
+			});
+			document.getElementById(screenId).classList.add('active');
+		}
+	</script>
+</body>
+
 </html>
