@@ -13,12 +13,6 @@
 			padding: 0;
 		}
 
-		.putCenter {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
 		.screen {
 			display: none;
 		}
@@ -33,6 +27,9 @@
 			border-radius: 1vw;
 			color: black;
 			font-size: 18px;
+			
+			display: grid;
+			place-items: center;
 			width: 30vw;
 			height: 15vw;
 		}
@@ -41,7 +38,7 @@
 
 <body>
 	<div class="screen active">
-		<button id="startButton" class="putCenter" onclick="switchScreen('playScreen')">スタート</button>
+		<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
 	</div>
 	<div class="screen">
 	</div>
