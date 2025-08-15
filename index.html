@@ -21,11 +21,11 @@
 			display: block;
 		}
 
-		#startScreen {
+		.startScreen {
 			background-color: white;
 		}
 
-		#startButton {
+		.startButton {
 			background-color: white;
 			border: black;
 			border-radius: 5px;
@@ -35,17 +35,17 @@
 			padding: 10pt 20pt;
 		}
 
-		#playScreen {
+		.playScreen {
 			background-color: blue;
 		}
 	</style>
 </head>
 
 <body>
-	<div id="startScreen" class="screen active">
-		<button id="startButton" onclick="switchScreen('playScreen')">スタートddad</button>
+	<div class="startScreen screen active">
+		<button class="startButton" onclick="switchScreen('playScreen')">スタートddad</button>
 	</div>
-	<div id="playScreen" class="screen">
+	<div class="playScreen screen">
 	</div>
 
 	<script>
