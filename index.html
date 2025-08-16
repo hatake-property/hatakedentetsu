@@ -28,6 +28,10 @@
 			border-radius: 5vw;
 			color: black;
 			font-size: 5vw;
+
+			position: absolute;
+			top: 40vw;
+			left: 35vw;
 			height: 15vw;
 			width: 30vw;
 		}
@@ -35,10 +39,45 @@
 		#playDisplay {
 		}
 
-		#play {
+		#topCanvas {
 			background-color: black;
-			height: 100vh;
+			height: calc((100vh - 10vw) / 2);
 			width: 100vw;
+		}
+
+		#bottomCanvas {
+			background-color: white;
+			position: absolute;
+			top: calc((100vh - 10vw) / 2 + 10vw);
+			height: calc((100vh - 10vw) / 2);
+			width: 100vw;
+		}
+
+		#leftPointerCanvas {
+			background-color: darkred;
+			position: absolute;
+			top: calc((100vh - 10vw) / 2 + 4vw);
+			left: 4vw;
+			height: 2vw;
+			width: 2vw;
+		}
+
+		#leftLeserCanvas {
+			background-color: tomato;
+			position: absolute;
+			top: calc((100vh - 10vw) / 2 + 4.5vw);
+			left: 4.5vw;
+			height: 1vw;
+			width: 5.5vw;
+		}
+
+		#baseCanvas {
+			background-color: white;
+			position: absolute;
+			top: calc((100vh - 80vw) / 2);
+			left: 10vw;
+			height: 80vw;
+			width: 80vw;
 		}
 	</style>
 </head>
@@ -48,8 +87,11 @@
 		<button id="startButton">Start</button>
 	</div>
 	<div id="playDisplay" class="display">
-		<canvas id="play">
-		</canvas>
+		<canvas id="topCanvas"></canvas>
+		<canvas id="bottomCanvas"></canvas>
+		<canvas id="leftPointerCanvas"></canvas>
+		<canvas id="leftLeserCanvas"></canvas>
+		<canvas id="baseCanvas"></canvas>
 	</div>
 
 	<script>
