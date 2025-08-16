@@ -1,62 +1,25 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>キャンバスの実験</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="150" height="150"></canvas>
+    <script type="application/javascript">
+      function draw() {
+        const canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+          const ctx = canvas.getContext("2d");
 
-<head>
-	<meta charset="utf-8">
-	<title>はたけ鉄道</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<style>
-		body {
-			font-family: 'Times New Roman', Times, serif;
-			margin: 0;
-			padding: 0;
-		}
+          ctx.fillStyle = "rgb(200 0 0)";
+          ctx.fillRect(10, 10, 50, 50);
 
-		.screen {
-			display: none;
-		}
-
-		.active {
-			display: block;
-		}
-
-		.putCenter {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100vh;
-		}
-
-		#startButton {
-			background-color: darkgray;
-			border: none;
-			border-radius: 1vw;
-			color: black;
-			font-size: 18px;
-			width: 30vw;
-			height: 15vw;
-		}
-	</style>
-</head>
-
-<body>
-	<div class="screen active">
-		<div class="putCenter">
-			<button id="startButton" onclick="switchScreen('playScreen')">スタート</button>
-		</div>
-	</div>
-	<div class="screen">
-	</div>
-
-	<script>
-		function switchScreen(screenId) {
-			document.querySelectorAll('.screen').forEach(screen => {
-				screen.classList.remove('active');
-			});
-			document.getElementById(screenId).classList.add('active');
-		}
-	</script>
-</body>
-
+          ctx.fillStyle = "rgb(0 0 200 / 50%)";
+          ctx.fillRect(30, 30, 50, 50);
+        }
+      }
+      draw();
+    </script>
+  </body>
 </html>
