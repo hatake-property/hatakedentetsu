@@ -1,25 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>キャンバスの実験</title>
-  </head>
-  <body>
-    <canvas id="canvas" width="150" height="150"></canvas>
-    <script type="application/javascript">
-      function draw() {
-        const canvas = document.getElementById("canvas");
-        if (canvas.getContext) {
-          const ctx = canvas.getContext("2d");
 
-          ctx.fillStyle = "rgb(200 0 0)";
-          ctx.fillRect(10, 10, 50, 50);
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Let's move the block and let the light transmit!">
+	<title>Transmit</title>
 
-          ctx.fillStyle = "rgb(0 0 200 / 50%)";
-          ctx.fillRect(30, 30, 50, 50);
-        }
-      }
-      draw();
-    </script>
-  </body>
+	<style>
+		.display {
+			display: none;
+		}
+
+		.show {
+			display: block;
+		}
+
+		#startButton {
+			background-color: gray;
+			border-radius: 5vw;
+			color: black;
+			font-size: 5vw;
+			height: 15vw;
+			width: 30vw;
+		}
+
+		#playDisplay {
+		}
+
+		#play {
+			background-color: black;
+			height: 100vh;
+			width: 100vw;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="startDisplay" class="display show">
+		<button id="startButton">Start</button>
+	</div>
+	<div id="playDisplay" class="display">
+		<canvas id="play">
+		</canvas>
+	</div>
+
+	<script>
+		class Block {
+			static type_1_2 = 0;
+			static type_1_3 = 1;
+			static type_2_1 = 2;
+			static type_3_1 = 3;
+			constructor(x, y, type) {
+				this.x = x;
+				this.y = y;
+				this.type = type;
+			}
+		}
+
+		var block = [];
+
+		function switchDisplay(displayId) {
+			const displays = document.querySelectorAll('.display');
+			displays.forEach(display => display.classList.remove('show'));
+			const targetDisplay = document.getElementById(displayId);
+			targetDisplay.classList.add('show');
+		}
+
+		window.addEventListener('load', () => {
+			const button = document.getElementById('startButton');
+			button.addEventListener('click', () => {
+				switchDisplay('playDisplay');
+				const play = document.getElementById('play');
+				if(play.getContext) {
+					const ctx = play.getContext('2D');
+				}
+			});
+		});
+	</script>
+</body>
+
 </html>
