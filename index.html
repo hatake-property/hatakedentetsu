@@ -41,44 +41,65 @@
 
 		#topCanvas {
 			background-color: black;
-			height: calc((100vh - 10vw) / 2);
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: calc((100vh - 60vw) / 2 + 20vw);
 			width: 100vw;
 		}
 
 		#bottomCanvas {
 			background-color: black;
 			position: absolute;
-			top: calc((100vh - 10vw) / 2 + 10vw);
+			top: calc((100vh - 60vw) / 2 + 30vw);
 			left: 0;
-			height: calc((100vh - 10vw) / 2);
+			height: calc((100vh - 60vw) / 2 + 30vw);
 			width: 100vw;
 		}
 
 		#leftLeserCanvas {
 			background-color: tomato;
 			position: absolute;
-			top: calc((100vh - 10vw) / 2 + 4.5vw);
+			top: calc((100vh - 60vw) / 2 + 24.5vw);
 			left: 4.5vw;
 			height: 1vw;
 			width: 5.5vw;
 		}
 
 		#leftPointerCanvas {
-			background-color: darkred;
+			background-color: red;
 			position: absolute;
-			top: calc((100vh - 10vw) / 2 + 2vw);
+			top: calc((100vh - 60vw) / 2 + 22vw);
 			left: 2vw;
-			height: 3vw;
-			width: 3vw;
+			height: 6vw;
+			width: 6vw;
+		}
+
+		#rightLeserCanvas {
+			background-color: tomato;
+			position: absolute;
+			top: calc((100vh - 60vw) / 2 + 24.5vw);
+			left: 94.5vw;
+			height: 1vw;
+			width: 5.5vw;
+		}
+
+		#rightPointerCanvas {
+			background-color: red;
+			position: absolute;
+			top: calc((100vh - 60vw) / 2 + 22vw);
+			left: 92vw;
+			height: 6vw;
+			width: 6vw;
 		}
 
 		#baseCanvas {
 			background-color: white;
 			position: absolute;
-			top: calc((100vh - 80vw) / 2);
-			left: 10vw;
-			height: 80vw;
-			width: 80vw;
+			top: calc((100vh - 60vw) / 2);
+			left: 20vw;
+			height: 60vw;
+			width: 60vw;
 		}
 	</style>
 </head>
@@ -92,6 +113,8 @@
 		<canvas id="bottomCanvas"></canvas>
 		<canvas id="leftLeserCanvas"></canvas>
 		<canvas id="leftPointerCanvas"></canvas>
+		<canvas id="rightLeserCanvas"></canvas>
+		<canvas id="rightPointerCanvas"></canvas>
 		<canvas id="baseCanvas"></canvas>
 	</div>
 
