@@ -1,156 +1,53 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="Let's move the block and let the light transmit!">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Transmit</title>
-
-	<style>
-		body {
-			margin: 0;
-			overflow: hidden;
-			padding: 0;
-		}
-
-		.display {
-			display: none;
-		}
-
-		.show {
-			display: block;
-		}
-
-		#startButton {
-			background-color: gray;
-			border-radius: 5vw;
-			color: black;
-			font-size: 5vw;
-
-			position: absolute;
-			top: 40vw;
-			left: 35vw;
-			height: 15vw;
-			width: 30vw;
-		}
-
-		#playDisplay {
-		}
-
-		#topCanvas {
-			background-color: black;
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: calc((100vh - 60vw) / 2 + 20vw);
-			width: 100vw;
-		}
-
-		#bottomCanvas {
-			background-color: black;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 30vw);
-			left: 0;
-			height: calc((100vh - 60vw) / 2 + 20vw);
-			width: 100vw;
-		}
-
-		#leftLeserCanvas {
-			background-color: tomato;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 24.5vw);
-			left: 4.5vw;
-			height: 1vw;
-			width: 15.5vw;
-		}
-
-		#leftPointerCanvas {
-			background-color: red;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 22vw);
-			left: 2vw;
-			height: 6vw;
-			width: 6vw;
-		}
-
-		#rightLeserCanvas {
-			background-color: tomato;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 24.5vw);
-			left: 80.5vw;
-			height: 1vw;
-			width: 15.5vw;
-		}
-
-		#rightPointerCanvas {
-			background-color: red;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 22vw);
-			left: 92vw;
-			height: 6vw;
-			width: 6vw;
-		}
-
-		#baseCanvas {
-			background-color: white;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2);
-			left: 20vw;
-			height: 60vw;
-			width: 60vw;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>長押しでオブジェクトを動かす</title>
+  <style>
+    #box {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+    }
+  </style>
 </head>
-
 <body>
-	<div id="startDisplay" class="display show">
-		<button id="startButton">Start</button>
-	</div>
-	<div id="playDisplay" class="display">
-		<canvas id="topCanvas"></canvas>
-		<canvas id="bottomCanvas"></canvas>
-		<canvas id="leftLeserCanvas"></canvas>
-		<canvas id="leftPointerCanvas"></canvas>
-		<canvas id="rightLeserCanvas"></canvas>
-		<canvas id="rightPointerCanvas"></canvas>
-		<canvas id="baseCanvas"></canvas>
-	</div>
+  <div id="box"></div>
 
-	<script>
-		class Block {
-			static type_1_2 = 0;
-			static type_1_3 = 1;
-			static type_2_1 = 2;
-			static type_3_1 = 3;
-			constructor(x, y, type) {
-				this.x = x;
-				this.y = y;
-				this.type = type;
-			}
-		}
+  <script>
+    const box = document.getElementById('box');
+    let intervalId = null;
 
-		var block = [];
+    // 長押し処理
+    box.addEventListener('mousedown', () => {
+      intervalId = setInterval(() => {
+        const currentLeft = parseInt(getComputedStyle(box).left, 10);
+        box.style.left = currentLeft + 5 + 'px'; // 右に動かす
+      }, 100); // 100msごとに動作
+    });
 
-		function switchDisplay(displayId) {
-			const displays = document.querySelectorAll('.display');
-			displays.forEach(display => display.classList.remove('show'));
-			const targetDisplay = document.getElementById(displayId);
-			targetDisplay.classList.add('show');
-		}
+    // タッチデバイス対応
+    box.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // タッチスクロールを防止
+      intervalId = setInterval(() => {
+        const currentLeft = parseInt(getComputedStyle(box).left, 10);
+        box.style.left = currentLeft + 5 + 'px';
+      }, 100);
+    });
 
-		window.addEventListener('load', () => {
-			const button = document.getElementById('startButton');
-			button.addEventListener('click', () => {
-				switchDisplay('playDisplay');
-				const play = document.getElementById('play');
-				if(play.getContext) {
-					const ctx = play.getContext('2D');
-				}
-			});
-		});
-	</script>
+    // 長押し解除時の処理
+    const stopMoving = () => {
+      clearInterval(intervalId);
+    };
+
+    box.addEventListener('mouseup', stopMoving);
+    box.addEventListener('mouseleave', stopMoving);
+    box.addEventListener('touchend', stopMoving);
+    box.addEventListener('touchcancel', stopMoving);
+  </script>
 </body>
-
 </html>
