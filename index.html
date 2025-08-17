@@ -157,6 +157,7 @@
 		function drowBlock() {
 			var baseCanvas = document.getElementById('baseCanvas');
 			var base = baseCanvas.getContext('2d');
+			base.fillStyle = "blue";
 			for (let i = 0; i < block.length; i ++) {
 				switch(block[i].type) {
 					case Block.type_1_2:
