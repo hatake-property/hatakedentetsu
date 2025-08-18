@@ -15,108 +15,41 @@
 			padding: 0;
 		}
 
-		.hide {
-			display: none;
-		}
-
-		.show {
-			display: block;
-		}
-
-		#startButton {
-			background-color: gray;
-			border-radius: 5vw;
-			color: black;
-			font-size: 5vw;
-
-			position: absolute;
-			top: 40vw;
-			left: 35vw;
-			height: 15vw;
-			width: 30vw;
-		}
-
-		#playDisplay {
-		}
-
-		#topCanvas {
+		#background {
 			background-color: black;
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: calc((100vh - 60vw) / 2 + 20vw);
+			height: 100vh;
 			width: 100vw;
 		}
 
-		#bottomCanvas {
-			background-color: black;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 30vw);
-			left: 0;
-			height: calc((100vh - 60vw) / 2 + 30vw);
-			width: 100vw;
-		}
-
-		#leftLeserCanvas {
-			background-color: tomato;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 24.5vw);
-			left: 4.5vw;
-			height: 1vw;
-			width: 15.5vw;
-		}
-
-		#leftPointerCanvas {
-			background-color: red;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 22vw);
-			left: 2vw;
-			height: 6vw;
-			width: 6vw;
-		}
-
-		#rightLeserCanvas {
-			background-color: tomato;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 24.5vw);
-			left: 80.5vw;
-			height: 1vw;
-			width: 15.5vw;
-		}
-
-		#rightPointerCanvas {
-			background-color: red;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2 + 22vw);
-			left: 92vw;
-			height: 6vw;
-			width: 6vw;
-		}
-
-		#baseCanvas {
+		#foreground {
 			background-color: white;
-			position: absolute;
-			top: calc((100vh - 60vw) / 2);
-			left: 20vw;
-			height: 60vw;
-			width: 60vw;
+		}
+
+		@media (max-aspect-ratio: 1/1) {
+			#foreground {
+				position: absolute;
+				top: 20vh;
+				left: calc((100vw - 60vh) / 2);
+				height: 60vh;
+				width: 60vh;
+			}
+		}
+
+		@media (min-aspect-ratio: 1/1) {
+			#foreground {
+				position: absolute;
+				top: calc((100vh - 60vw) / 2);
+				left: 20vw;
+				height: 60vw;
+				width: 60vw;
+			}
 		}
 	</style>
 </head>
 
 <body>
-	<div id="startDisplay" class="hide show">
-		<button id="startButton">Start</button>
-	</div>
-	<div id="playDisplay" class="hide">
-		<canvas id="topCanvas"></canvas>
-		<canvas id="bottomCanvas"></canvas>
-		<canvas id="leftLeserCanvas"></canvas>
-		<canvas id="leftPointerCanvas"></canvas>
-		<canvas id="rightLeserCanvas"></canvas>
-		<canvas id="rightPointerCanvas"></canvas>
-		<canvas id="baseCanvas"></canvas>
-	</div>
+	<canvas id="background"></canvas>
+	<canvas id="foreground"></canvas>
 
 	<script>
 		class Block {
@@ -147,13 +80,6 @@
 
 		var block = [];
 
-		function switchDisplay(displayId) {
-			const displays = document.querySelectorAll('.display');
-			displays.forEach(display => display.classList.remove('show'));
-			const targetDisplay = document.getElementById(displayId);
-			targetDisplay.classList.add('show');
-		}
-
 		function drowBlock() {
 			var baseCanvas = document.getElementById('baseCanvas');
 			var base = baseCanvas.getContext('2d');
@@ -178,9 +104,6 @@
 
 		window.addEventListener('load', () => {
 			const button = document.getElementById('startButton');
-			button.addEventListener('click', () => {
-				switchDisplay('playDisplay');
-			});
 			block[0] = new Block(0, 0, Block.type_1_3);
 			drowBlock();
 		});
