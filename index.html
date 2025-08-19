@@ -52,7 +52,7 @@
 	<canvas id="foreground"></canvas>
 	<script>
 		var block = [];
-		var color = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow'];
+		var color = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 
 		class Block {
 			constructor(x, y, width, height) {
@@ -71,7 +71,9 @@
 
 		function drow() {
 			const foreCanvas = document.getElementById('foreground')
-			foreground = foreCanvas.getContext('2d');
+			const foreground = foreCanvas.getContext('2d');
+			foreCanvas.width = foreCanvas.offsetWidth;
+			foreCanvas.height = foreCanvas.offsetHeight;
 			foreground.clearRect(0, 0, foreground.width, foreground.height);
 			for(i = 0; i < block.length; i ++) {
 				foreground.fillStyle = color[i];
