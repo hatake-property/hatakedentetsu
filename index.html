@@ -50,62 +50,63 @@
 <body>
 	<canvas id="background"></canvas>
 	<canvas id="foreground"></canvas>
-
 	<script>
-		class Block {
-			static type_1_2 = 0;
-			static type_1_3 = 1;
-			static type_2_1 = 2;
-			static type_3_1 = 3;
-			static side = window.innerWidth / 10;
-
-			constructor(x, y, type) {
-				this._x = x;
-				this._y = y;
-				this._type = type;
-			}
-
-			get x() {
-				return this._x;
-			}
-
-			get y() {
-				return this._y;
-			}
-
-			get type() {
-				return this._type;
-			}
-		}
-
 		var block = [];
+		var color = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow'];
 
-		function drowBlock() {
-			var baseCanvas = document.getElementById('baseCanvas');
-			var base = baseCanvas.getContext('2d');
-			base.fillStyle = "blue";
-			for (let i = 0; i < block.length; i ++) {
-				switch(block[i].type) {
-					case Block.type_1_2:
-						base.fillRect(block[i].x * Block.side, block[i].y * Block.side, Block.side * 1, Block.side * 2);
-						break;
-					case Block.type_1_3:
-						base.fillRect(block[i].x * Block.side, block[i].y * Block.side, Block.side * 1, Block.side * 3);
-						break;
-					case Block.type_2_1:
-						base.fillRect(block[i].x * Block.side, block[i].y * Block.side, Block.side * 2, Block.side * 1);
-						break;
-					case Block.type_3_1:
-						base.fillRect(block[i].x * Block.side, block[i].y * Block.side, Block.side * 3, Block.side * 1);
-						break;
+		class Block {
+			constructor(x, y, width, height) {
+				this.x = x;
+				this.y = y;
+				this.height = height;
+				this.width = width;
+			}
+
+			drow() {
+				const foreground = document.getElementById('foreground').getContext('2d');
+				const n = document.getElementById('foreground').width / 6;
+				for(i = 0; i < block.length; i ++) {
+					foreground.fillStyle = color[i];
+					foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
 				}
 			}
 		}
 
+		function drow() {
+			block.forEach(e => {
+				e.drow();
+			});
+		}
+
+		function setBlock() {
+			for(i = color.length - 1; i > 0; i --) {
+				j = Math.random() * color.length | 0;
+				temp = color[i];
+				color[i] = color[j];
+				color[j] = temp;
+			}
+
+			block[0] = new Block(0, 0, 1, 2);
+			block[1] = new Block(1, 0, 2, 1);
+			block[2] = new Block(3, 0, 3, 1);
+			block[3] = new Block(2, 1, 2, 1);
+			block[4] = new Block(4, 1, 1, 2);
+			block[5] = new Block(2, 2, 2, 1);
+			block[6] = new Block(0, 3, 2, 1);
+			block[7] = new Block(3, 3, 2, 1);
+			block[8] = new Block(5, 3, 1, 3);
+			block[9] = new Block(1, 4, 2, 1);
+			block[10] = new Block(3, 4, 1, 2);
+			block[11] = new Block(0, 5, 3, 1);
+		}
+
 		window.addEventListener('load', () => {
-			const button = document.getElementById('startButton');
-			block[0] = new Block(0, 0, Block.type_1_3);
-			drowBlock();
+			setBlock();
+			drow();
+		});
+
+		window.addEventListener('resize', () => {
+			drow();
 		});
 	</script>
 </body>
