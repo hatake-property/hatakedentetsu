@@ -65,14 +65,15 @@
 			drow() {
 				const foreground = document.getElementById('foreground').getContext('2d');
 				const n = document.getElementById('foreground').width / 6;
-				for(i = 0; i < block.length; i ++) {
-					foreground.fillStyle = color[i];
-					foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
-				}
+				foreground.fillStyle = color[i];
+				foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
 			}
 		}
 
 		function drow() {
+			const foreCanvas = document.getElementById('foreground')
+			foreground = foreCanvas.getContext('2d');
+			foreground.clearRect(0, 0, foreground.width, foreground.height);
 			block.forEach(e => {
 				e.drow();
 			});
