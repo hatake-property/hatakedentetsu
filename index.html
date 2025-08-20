@@ -149,19 +149,22 @@
 				if(0 > y && y > 6 - selectedBlock.height) {
 					return;
 				}
-				block.forEach(b => {
+				for(i = 0; i < block.length; i ++) {
 					if(b.y < y && y < b.y + b.height) {
 						return;
 					}
-				});
+				}
 				selectedBlock.y = y;
 			}
 			drow();
 		});
 
 		document.addEventListener('pointerup', () => {
-			selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
-			selectedBlock = null;
+			if(selectedBlock) {
+				selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
+				selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
+				selectedBlock = null;
+			}
 			drow();
 		});
 
