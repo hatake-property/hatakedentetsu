@@ -132,11 +132,14 @@
 			const rect = document.getElementById('foreground').getBoundingClientRect();
 			if(selectedBlock.height == 1) {
 				let x = (e.clientX - rect.left) / n - offsetX;
-				if(0 > x && x + selectedBlock.height > 6) {
+				if(0 > x && x + selectedBlock.width > 6) {
 					return;
 				}
 				for(i = 0; i < block.length; i ++) {
-					if(block[i].x + block[i].height > x && x + selectedBlock.height > block[i].x) {
+					if(
+						(block[i].x < x && x < block[i].x + block[i].width) ||
+						(block[i].x < x + selectedBlock.width && x + selectedBlock.width < block[i].x + block[i].width)
+					) {
 						return;
 					}
 				}
