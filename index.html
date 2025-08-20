@@ -55,7 +55,7 @@
 		let selectedBlock = null;
 		let offsetX;
 		let offsetY;
-		const n = document.getElementById('foreground').width / 6;
+		let n;
 		var color = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 
 		class Block {
@@ -120,6 +120,7 @@
 		});
 
 		window.addEventListener('load', () => {
+			n = document.getElementById('foreground').width / 6;
 			setBlock();
 			drow();
 		});
@@ -161,6 +162,7 @@
 		});
 
 		window.addEventListener('resize', () => {
+			n = document.getElementById('foreground').width / 6;
 			drow();
 		});
 	</script>
