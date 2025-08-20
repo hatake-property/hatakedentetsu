@@ -106,7 +106,7 @@
 			block[11] = new Block(0, 5, 3, 1);
 		}
 
-		document.getElementById('foreground').addEventListener('mousedown', (e) => {
+		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
 			const rect = e.target.getBoundingClientRect();
 			const x = (e.clientX - rect.left) / n;
 			const y = (e.clientY - rect.top) / n;
@@ -125,7 +125,7 @@
 			drow();
 		});
 
-		document.addEventListener('mousemove', (e) => {
+		document.addEventListener('pointermove', (e) => {
 			if (!selectedBlock) {
 				return;
 			}
@@ -156,7 +156,7 @@
 			drow();
 		});
 
-		document.addEventListener('mouseup', () => {
+		document.addEventListener('pointerup', () => {
 			selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
 			selectedBlock = null;
 		});
