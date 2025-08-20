@@ -120,7 +120,7 @@
 		});
 
 		window.addEventListener('load', () => {
-			n = document.getElementById('foreground').width / 6;
+			n = document.getElementById('foreground').offsetWidth / 6;
 			setBlock();
 			drow();
 		});
@@ -162,7 +162,7 @@
 		});
 
 		window.addEventListener('resize', () => {
-			n = document.getElementById('foreground').width / 6;
+			n = document.getElementById('foreground').offsetWidth / 6;
 			drow();
 		});
 	</script>
