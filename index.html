@@ -52,6 +52,10 @@
 	<canvas id="foreground"></canvas>
 	<script>
 		var block = [];
+		let selectedBlock = null;
+		let offsetX;
+		let offsetY;
+		const n = document.getElementById('foreground').width / 6;
 		var color = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 
 		class Block {
@@ -64,7 +68,6 @@
 
 			drow() {
 				const foreground = document.getElementById('foreground').getContext('2d');
-				const n = document.getElementById('foreground').width / 6;
 				foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
 			}
 		}
@@ -103,9 +106,58 @@
 			block[11] = new Block(0, 5, 3, 1);
 		}
 
+		document.getElementById('foreground').addEventListener('mousedown', (e) => {
+			const rect = e.target.getBoundingClientRect();
+			const x = (e.clientX - rect.left) / n;
+			const y = (e.clientY - rect.top) / n;
+			block.forEach(b => {
+				if (x >= b.x && x <= b.x + b.width && y >= b.y && y <= b.y + b.height) {
+					selectedBlock = b;
+					offsetX = x - b.x;
+					offsetY = y - b.y;
+				}
+			});
+		});
+
 		window.addEventListener('load', () => {
 			setBlock();
 			drow();
+		});
+
+		document.addEventListener('mousemove', (e) => {
+			if (!selectedBlock) {
+				return;
+			}
+			const rect = document.getElementById('foreground').getBoundingClientRect();
+			if(selectedBlock.height == 1) {
+				let x = (e.clientX - rect.left) / n - offsetX;
+				if(0 > x && x > 6 - selectedBlock.width) {
+					return;
+				}
+				block.forEach(b => {
+					if(b.x < x && x < b.x + b.width) {
+						return;
+					}
+				});
+				selectedBlock.x = x;
+			} else {
+				let y = (e.clientY - rect.top) / n - offsetY;
+				if(0 > y && y > 6 - selectedBlock.height) {
+					return;
+				}
+				block.forEach(b => {
+					if(b.y < y && y < b.y + b.height) {
+						return;
+					}
+				});
+				selectedBlock.y = y;
+			}
+			drow();
+		});
+
+		document.addEventListener('mouseup', () => {
+			selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
+			selectedBlock = null;
 		});
 
 		window.addEventListener('resize', () => {
