@@ -270,12 +270,14 @@
 		});
 
 		document.addEventListener('pointerup', () => {
-			if(selectedBlock) {
+			if(isGameClear) {
+				return;
+			} else if(selectedBlock) {
 				selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
 				selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
 				selectedBlock = null;
+				drow();
 			}
-			drow();
 		});
 
 		window.addEventListener('resize', () => {
