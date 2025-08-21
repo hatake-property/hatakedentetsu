@@ -150,7 +150,7 @@
 						foreground.fillText('Game Clear', (6 * n - foreground.measureText('Game Clear').width) / 2, 3 * n);
 					}
 					count ++;
-				}, 10);
+				}, 5);
 			}
 		}
 
@@ -189,11 +189,6 @@
 
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
 			if(isGameClear) {
-				isGameClear = false;
-				block = [];
-				laser = [];
-				setBlock();
-				drow();
 				return;
 			}
 			const rect = e.target.getBoundingClientRect();
