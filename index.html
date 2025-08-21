@@ -138,7 +138,6 @@
 			}
 			if(laser.every(l => l === false)) {
 				let count = 0;
-				let isClearInterval = false;
 				let intervalId = setInterval(() => {
 					foreground.beginPath();
 					foreground.arc(finalBlock * n, 2.5 * n, count, 0, 2 * Math.PI, false);
@@ -146,16 +145,12 @@
 					foreground.fill();
 					if(Math.sqrt((finalBlock > 3 ? finalBlock : (6 - finalBlock)) ** 2 + 3.5 ** 2) * n < count) {
 						clearInterval(intervalId);
-						isClearInterval = true;
+						foreground.font = `${n}px Arial`;
+						foreground.fillStyle = 'black';
+						foreground.fillText('Game Clear', (6 * n - foreground.measureText('Game Clear').width) / 2, 3 * n);
 					}
 					count ++;
 				}, 10);
-				while(!isClearInterval) {
-				}
-				foreground.font = `${n}px Arial`;
-				foreground.fillStyle = 'black';
-				foreground.fillText('Game Clear', (6 * n - foreground.measureText('Game Clear').width) / 2, 3 * n);
-				isGameClear = true;
 			}
 		}
 
