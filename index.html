@@ -137,6 +137,9 @@
 					return;
 				}
 				for(i = 0; i < block.length; i ++) {
+					if(block[i] === selectedBlock) {
+						continue;
+					}
 					if(block[i].x < x && x < block[i].x + block[i].width) {
 						return;
 					}
@@ -149,6 +152,17 @@
 				let y = (e.clientY - rect.top) / n - offsetY;
 				if(0 > y || y + selectedBlock.height > 6) {
 					return;
+				}
+				for(i = 0; i < block.length; i ++) {
+					if(block[i] === selectedBlock) {
+						continue;
+					}
+					if(block[i].y < y && y < block[i].y + block[i].height) {
+						return;
+					}
+					if(block[i].y < y + selectedBlock.height && y + selectedBlock.height < block[i].y + block[i].height) {
+						return;
+					}
 				}
 				selectedBlock.y = y;
 			}
