@@ -189,6 +189,8 @@
 
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
 			if(isGameClear) {
+				isGameClear = false;
+				setBlock();
 				return;
 			}
 			const rect = e.target.getBoundingClientRect();
@@ -270,11 +272,7 @@
 		});
 
 		document.addEventListener('pointerup', () => {
-			if(isGameClear) {
-				isGameClear = false;
-				setBlock();
-				drow();
-			} else if(selectedBlock) {
+			if(selectedBlock && !isGameClear) {
 				selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
 				selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
 				selectedBlock = null;
