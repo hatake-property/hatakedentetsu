@@ -21,11 +21,31 @@
 			width: 100vw;
 		}
 
+		#leftLaser, #rightLaser {
+			background-color: darkred;
+		}
+
 		#foreground {
 			background-color: white;
 		}
 
 		@media (min-aspect-ratio: 1/1) {
+			#leftLaser {
+				position: absolute;
+				top: 41vh;
+				left: calc((100vw - 60vh) / 2 - 2);
+				height: 8vh;
+				width: 2vh;
+			}
+
+			#rightLaser {
+				position: absolute;
+				top: 41vh;
+				left: calc((100vw - 60vh) / 2 + 60vh);
+				height: 8vh;
+				width: 2vh;
+			}
+
 			#foreground {
 				position: absolute;
 				top: 20vh;
@@ -36,6 +56,22 @@
 		}
 
 		@media (max-aspect-ratio: 1/1) {
+			#leftLaser {
+				position: absolute;
+				top: calc((100vh - 60vw) / 2 + 21vw);
+				left: 18vw;
+				height: 8vw;
+				width: 2vw;
+			}
+
+			#rightLaser {
+				position: absolute;
+				top: calc((100vh - 60vw) / 2 + 21vw);
+				left: 80vw;
+				height: 8vw;
+				width: 2vw;
+			}
+
 			#foreground {
 				position: absolute;
 				top: calc((100vh - 60vw) / 2);
@@ -49,6 +85,8 @@
 
 <body>
 	<canvas id="background"></canvas>
+	<canvas id="leftLaser"></canvas>
+	<canvas id="rightLaser"></canvas>
 	<canvas id="foreground"></canvas>
 	<script>
 		var block = [];
@@ -82,6 +120,8 @@
 				foreground.fillStyle = color[i];
 				block[i].drow();
 			}
+			foreground.fillStyle = "orangered";
+			foreground.fillRect(0, 2.4 * n, 6 * n, 0.2 * n);
 		}
 
 		function setBlock() {
