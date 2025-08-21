@@ -134,6 +134,11 @@
 				}
 				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
 			}
+			if(laser[0] === false && laser[1] === false && laser[2] === false && laser[3] === false && laser[4] === false && laser[5] === false) {
+				foreground.font = `${n}px Arial`;
+				foreground.fontStyle = 'black';
+				foreground.fillText("Game Clear");
+			}
 		}
 
 		function setBlock() {
