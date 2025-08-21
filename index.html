@@ -136,7 +136,8 @@
 				}
 				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
 			}
-			if(laser.every(l => l === false) && !isGameClear) {
+			if(laser.every(l => l === false)) {
+				isGameClear = true;
 				let count = 0;
 				let intervalId = setInterval(() => {
 					foreground.beginPath();
@@ -189,6 +190,9 @@
 
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
 			if(isGameClear) {
+				isGameClear = false;
+				block = [];
+				setBlock();
 				return;
 			}
 			const rect = e.target.getBoundingClientRect();
