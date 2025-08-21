@@ -95,6 +95,7 @@
 		let offsetY;
 		let n;
 		var color = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
+		var laser = [];
 
 		class Block {
 			constructor(x, y, width, height) {
@@ -117,7 +118,18 @@
 			foreCanvas.height = foreCanvas.offsetHeight;
 			foreground.clearRect(0, 0, foreground.width, foreground.height);
 			foreground.fillStyle = "orangered";
-			foreground.fillRect(0, 2.4 * n, 6 * n, 0.2 * n);
+			for(let i = 0; i < 3; i ++) {
+				if(laser[i] == true) {
+					break;
+				}
+				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
+			}
+			for(let i = 5; i > 2; i --) {
+				if(laser[i] == true) {
+					break;
+				}
+				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
+			}
 			for(let i = 0; i < block.length; i ++) {
 				foreground.fillStyle = color[i];
 				block[i].drow();
@@ -144,6 +156,17 @@
 			block[9] = new Block(1, 4, 2, 1);
 			block[10] = new Block(3, 4, 1, 2);
 			block[11] = new Block(0, 5, 3, 1);
+
+			for(let i = 0; i < 6; i ++) {
+				laser[i] = false;
+			}
+			block.forEach(b => {
+				if(b.y <= 3 || 3 <= b.y + b.height) {
+					for(let i = b.x; i < b.width; i ++) {
+						laser[i] = true;
+					}
+				}
+			});
 		}
 
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
@@ -203,6 +226,11 @@
 					if(overlapX && overlapY) {
 						return;
 					}
+				}
+				if(y > 2.6 || y + selectedBlock.height < 2.4) {
+					laser[selectedBlock.x] = false;
+				} else {
+					laser[selectedBlock.x] = true;
 				}
 				selectedBlock.y = y;
 			}
