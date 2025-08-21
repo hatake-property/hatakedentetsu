@@ -190,7 +190,9 @@
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
 			if(isGameClear) {
 				isGameClear = false;
+				block = [];
 				setBlock();
+				drow();
 				return;
 			}
 			const rect = e.target.getBoundingClientRect();
