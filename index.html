@@ -119,13 +119,13 @@
 			foreground.clearRect(0, 0, foreground.width, foreground.height);
 			foreground.fillStyle = "orangered";
 			for(let i = 0; i < 3; i ++) {
-				if(laser[i] == true) {
+				if(laser[i] === true) {
 					break;
 				}
 				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
 			}
 			for(let i = 5; i > 2; i --) {
-				if(laser[i] == true) {
+				if(laser[i] === true) {
 					break;
 				}
 				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
