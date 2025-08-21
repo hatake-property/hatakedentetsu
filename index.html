@@ -94,6 +94,7 @@
 		let offsetX;
 		let offsetY;
 		let n;
+		let isGameClear = false;
 		var color = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 		var laser = [];
 
@@ -136,8 +137,9 @@
 			}
 			if(laser[0] === false && laser[1] === false && laser[2] === false && laser[3] === false && laser[4] === false && laser[5] === false) {
 				foreground.font = `${n}px Arial`;
-				foreground.fontStyle = 'black';
-				foreground.fillText("Game Clear");
+				foreground.fillStyle = 'black';
+				foreground.fillText('Game Clear', 0, 2 * n);
+				isGameClear = true;
 			}
 		}
 
@@ -149,18 +151,18 @@
 				color[j] = temp;
 			}
 
-		//	block[0] = new Block(0, 0, 1, 2);
-		//	block[1] = new Block(1, 0, 2, 1);
-		//	block[2] = new Block(3, 0, 3, 1);
-		//	block[3] = new Block(2, 1, 2, 1);
-			block[0] = new Block(4, 1, 1, 2);
-		//	block[5] = new Block(2, 2, 1, 2);
-		//	block[6] = new Block(0, 3, 2, 1);
-		//	block[7] = new Block(3, 3, 2, 1);
-		//	block[8] = new Block(5, 3, 1, 3);
-		//	block[9] = new Block(1, 4, 2, 1);
-		//	block[10] = new Block(3, 4, 1, 2);
-		//	block[11] = new Block(0, 5, 3, 1);
+			block[0] = new Block(0, 0, 1, 2);
+			block[1] = new Block(1, 0, 2, 1);
+			block[2] = new Block(3, 0, 3, 1);
+			block[3] = new Block(2, 1, 2, 1);
+			block[4] = new Block(4, 1, 1, 2);
+			block[5] = new Block(2, 2, 1, 2);
+			block[6] = new Block(0, 3, 2, 1);
+			block[7] = new Block(3, 3, 2, 1);
+			block[8] = new Block(5, 3, 1, 3);
+			block[9] = new Block(1, 4, 2, 1);
+			block[10] = new Block(3, 4, 1, 2);
+			block[11] = new Block(0, 5, 3, 1);
 
 			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
@@ -175,6 +177,12 @@
 		}
 
 		document.getElementById('foreground').addEventListener('pointerdown', (e) => {
+			if(isGameClear) {
+				setBlock();
+				isGameClear = false;
+				drow();
+				return;
+			}
 			const rect = e.target.getBoundingClientRect();
 			const x = (e.clientX - rect.left) / n;
 			const y = (e.clientY - rect.top) / n;
