@@ -136,10 +136,18 @@
 				if(0 > x || x + selectedBlock.width > 6) {
 					return;
 				}
+				for(i = 0; i < block.length; i ++) {
+					if(block[i].x < x && x < block[i].x + block[i].width) {
+						return;
+					}
+					if(block[i].x < x + selectedBlock.width && x + selectedBlock.width < block[i].x + block[i].width) {
+						return;
+					}
+				}
 				selectedBlock.x = x;
 			} else {
 				let y = (e.clientY - rect.top) / n - offsetY;
-				if(0 > y || y > 6 - selectedBlock.height) {
+				if(0 > y || y + selectedBlock.height > 6) {
 					return;
 				}
 				selectedBlock.y = y;
