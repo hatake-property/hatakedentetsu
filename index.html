@@ -78,14 +78,14 @@
 			foreCanvas.width = foreCanvas.offsetWidth;
 			foreCanvas.height = foreCanvas.offsetHeight;
 			foreground.clearRect(0, 0, foreground.width, foreground.height);
-			for(i = 0; i < block.length; i ++) {
+			for(let i = 0; i < block.length; i ++) {
 				foreground.fillStyle = color[i];
 				block[i].drow();
 			}
 		}
 
 		function setBlock() {
-			for(i = color.length - 1; i > 0; i --) {
+			for(let i = color.length - 1; i > 0; i --) {
 				j = Math.random() * color.length | 0;
 				temp = color[i];
 				color[i] = color[j];
@@ -136,8 +136,8 @@
 				if(0 > x || x + selectedBlock.width > 6) {
 					return;
 				}
-				for(i = 0; i < block.length; i ++) {
-					if(block[i] === selectedBlock) {
+				for(let i = 0; i < block.length; i ++) {
+					if(block[i].x == selectedBlock.x && block[i].width == selectedBlock.width) {
 						continue;
 					}
 					if(x < block[i].x + block[i].width && x + selectedBlock.width > block[i].x) {
@@ -150,8 +150,8 @@
 				if(0 > y || y + selectedBlock.height > 6) {
 					return;
 				}
-				for(i = 0; i < block.length; i ++) {
-					if(block[i] === selectedBlock) {
+				for(let i = 0; i < block.length; i ++) {
+					if(block[i].y == selectedBlock.y && block[i].height == selectedBlock.height) {
 						continue;
 					}
 					if(y < block[i].y + block[i].height && y + selectedBlock.height > block[i].y) {
