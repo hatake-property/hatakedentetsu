@@ -136,7 +136,7 @@
 				}
 				foreground.fillRect(i * n, 2.4 * n, n, 0.2 * n);
 			}
-			if(laser.every(l => l === false)) {
+			if(laser.every(l => l === false) && !isGameClear) {
 				let count = 0;
 				let intervalId = setInterval(() => {
 					foreground.beginPath();
