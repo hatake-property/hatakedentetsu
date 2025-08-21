@@ -161,7 +161,7 @@
 				laser[i] = false;
 			}
 			block.forEach(b => {
-				if(b.y <= 3 || 3 <= b.y + b.height) {
+				if(b.y == 2 && b.y + b.height == 3) {
 					for(let i = b.x; i < b.width; i ++) {
 						laser[i] = true;
 					}
