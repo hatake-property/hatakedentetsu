@@ -132,13 +132,13 @@
 			const rect = document.getElementById('foreground').getBoundingClientRect();
 			if(selectedBlock.height == 1) {
 				let x = (e.clientX - rect.left) / n - offsetX;
-				if(0 > x && x + selectedBlock.width > 6) {
+				if(0 > x || x + selectedBlock.width > 6) {
 					return;
 				}
 				selectedBlock.x = x;
 			} else {
 				let y = (e.clientY - rect.top) / n - offsetY;
-				if(0 > y && y > 6 - selectedBlock.height) {
+				if(0 > y || y > 6 - selectedBlock.height) {
 					return;
 				}
 				selectedBlock.y = y;
@@ -148,8 +148,8 @@
 
 		document.addEventListener('pointerup', () => {
 			if(selectedBlock) {
-		//		selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
-		//		selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
+				selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
+				selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
 				selectedBlock = null;
 			}
 			drow();
