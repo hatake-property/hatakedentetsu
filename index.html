@@ -140,10 +140,7 @@
 					if(block[i] === selectedBlock) {
 						continue;
 					}
-					if(block[i].x < x && x < block[i].x + block[i].width) {
-						return;
-					}
-					if(block[i].x < x + selectedBlock.width && x + selectedBlock.width < block[i].x + block[i].width) {
+					if(x < block[i].x + block[i].width && x + selectedBlock.width > block[i].x) {
 						return;
 					}
 				}
@@ -157,10 +154,7 @@
 					if(block[i] === selectedBlock) {
 						continue;
 					}
-					if(block[i].y < y && y < block[i].y + block[i].height) {
-						return;
-					}
-					if(block[i].y < y + selectedBlock.height && y + selectedBlock.height < block[i].y + block[i].height) {
+					if(y < block[i].y + block[i].height && y + selectedBlock.height > block[i].y) {
 						return;
 					}
 				}
