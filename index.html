@@ -271,7 +271,9 @@
 
 		document.addEventListener('pointerup', () => {
 			if(isGameClear) {
-				return;
+				isGameClear = false;
+				setBlock();
+				drow();
 			} else if(selectedBlock) {
 				selectedBlock.x = Math.floor(selectedBlock.x + 0.5);
 				selectedBlock.y = Math.floor(selectedBlock.y + 0.5);
