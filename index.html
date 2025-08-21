@@ -9,7 +9,7 @@
 	<title>Transmit</title>
 
 	<style>
-		body {
+		html, body {
 			margin: 0;
 			overflow: hidden;
 			padding: 0;
@@ -113,7 +113,7 @@
 			block.forEach(b => {
 				if (x >= b.x && x <= b.x + b.width && y >= b.y && y <= b.y + b.height) {
 					selectedBlock = b;
-					offsetX = x - b.x;
+					offsetX = x -  b.x;
 					offsetY = y - b.y;
 				}
 			});
@@ -126,6 +126,7 @@
 		});
 
 		document.addEventListener('pointermove', (e) => {
+			e.preventDefault();
 			if (!selectedBlock) {
 				return;
 			}
@@ -144,6 +145,8 @@
 				selectedBlock.y = y;
 			}
 			drow();
+		}, {
+			passive: false
 		});
 
 		document.addEventListener('pointerup', () => {
