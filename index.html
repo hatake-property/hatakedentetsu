@@ -137,10 +137,13 @@
 					return;
 				}
 				for(let i = 0; i < block.length; i ++) {
-					if(block[i].x == selectedBlock.x && block[i].width == selectedBlock.width) {
+					const b = block[i];
+					if(b === selectedBlock) {
 						continue;
 					}
-					if(x < block[i].x + block[i].width && x + selectedBlock.width > block[i].x) {
+					const overlapX = x < b.x + b.width && x + selectedBlock.width > b.x;
+					const overlapY = selectedBlock.y < b.y + b.height && selectedBlock.y + selectedBlock.height > b.y;
+					if(overlapX && overlapY) {
 						return;
 					}
 				}
@@ -151,10 +154,13 @@
 					return;
 				}
 				for(let i = 0; i < block.length; i ++) {
-					if(block[i].y == selectedBlock.y && block[i].height == selectedBlock.height) {
+					const b = block[i];
+					if(b === selectedBlock) {
 						continue;
 					}
-					if(y < block[i].y + block[i].height && y + selectedBlock.height > block[i].y) {
+					const overlapX = selectedBlock.x < b.x + b.width && selectedBlock.x + selectedBlock.width > b.x;
+					const overlapY = y < b.y + b.height && y + selectedBlock.height > b.y;
+					if(overlapX && overlapY) {
 						return;
 					}
 				}
