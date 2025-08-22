@@ -163,16 +163,14 @@
 				color[j] = temp;
 			}
 
-block.push(new Block(0, 0, 3, 1)); // 横長
-block.push(new Block(3, 0, 1, 3)); // 縦長
-block.push(new Block(0, 1, 1, 3)); // 縦長
-block.push(new Block(1, 1, 2, 1)); // 横長
-block.push(new Block(1, 2, 1, 2)); // 縦長
-block.push(new Block(2, 2, 1, 3)); // ★ 縦長（レーザー遮断ブロック）
-block.push(new Block(4, 3, 1, 2)); // 縦長
-block.push(new Block(0, 4, 2, 1)); // 横長
-block.push(new Block(3, 5, 2, 1)); // 横長
-
+block = [
+  new Block(0, 1, 3, 1),
+  new Block(2, 3, 1, 3),
+  new Block(4, 0, 1, 2),
+  new Block(5, 2, 1, 3),
+  new Block(1, 4, 2, 1),
+  new Block(3, 1, 2, 1),
+];
 			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
 			}
