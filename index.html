@@ -164,18 +164,19 @@
 			}
 
 block = [
-  new Block(0, 2, 3, 1),
-  new Block(3, 2, 3, 1),
-  new Block(0, 0, 1, 3),
-  new Block(1, 3, 2, 1),
-  new Block(4, 0, 1, 2),
-  new Block(5, 3, 1, 3),
-  new Block(2, 4, 2, 1),
-  new Block(3, 1, 1, 2),
-  new Block(0, 5, 3, 1),
-  new Block(5, 0, 1, 2),
-  new Block(1, 1, 2, 1),
-];			for(let i = 0; i < 6; i ++) {
+  new Block(0, 2, 3, 1), // 横長、レーザーライン塞ぎ
+  new Block(3, 2, 2, 1), // 横長、レーザーライン塞ぎ
+  new Block(5, 0, 1, 3), // 縦長、右端上部
+  new Block(4, 4, 1, 2), // 縦長、右下
+  new Block(0, 0, 1, 3), // 縦長、左上
+  new Block(1, 5, 2, 1), // 横長、最下段左寄り
+  new Block(3, 0, 2, 1), // 横長、上中央
+  new Block(0, 4, 2, 1), // 横長、下左寄り
+  new Block(2, 3, 1, 2), // 縦長、中ほど縦
+  new Block(5, 3, 1, 2), // 縦長、右下端
+];
+			
+			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
 			}
 			block.forEach(b => {
