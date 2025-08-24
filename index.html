@@ -98,10 +98,6 @@
 		let isGameClear = false;
 		var color = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 		var laser = [];
-		const stages = [
-			[new Block(0, 0, 1, 2), new Block(1, 0, 1, 2), new Block(2, 0, 2, 1), new Block(4, 0, 1, 2), new Block(2, 1, 2, 1), new Block(2, 2, 1, 2), new Block(3, 2, 1, 3), new Block(4, 3, 1, 2), new Block(2, 4, 1, 2)],
-			[new Block(2, 1, 1, 2), new Block(4, 1, 1, 3), new Block(5, 2, 1, 2), new Block(0, 3, 3, 1), new Block(0, 4, 1, 2), new Block(1, 4, 1, 2), new Block(2, 4, 1, 2), new Block(4, 4, 2, 1), new Block(4, 5, 2, 1)],
-		];
 
 		class Block {
 			constructor(x, y, width, height) {
@@ -116,6 +112,11 @@
 				foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
 			}
 		}
+
+		const stages = [
+			[new Block(0, 0, 1, 2), new Block(1, 0, 1, 2), new Block(2, 0, 2, 1), new Block(4, 0, 1, 2), new Block(2, 1, 2, 1), new Block(2, 2, 1, 2), new Block(3, 2, 1, 3), new Block(4, 3, 1, 2), new Block(2, 4, 1, 2)],
+			[new Block(2, 1, 1, 2), new Block(4, 1, 1, 3), new Block(5, 2, 1, 2), new Block(0, 3, 3, 1), new Block(0, 4, 1, 2), new Block(1, 4, 1, 2), new Block(2, 4, 1, 2), new Block(4, 4, 2, 1), new Block(4, 5, 2, 1)],
+		];
 
 		function drow() {
 			const foreCanvas = document.getElementById('foreground')
