@@ -177,6 +177,22 @@
 				color[j] = temp;
 			}
 
+			let stage;
+			while(true) {
+				stage = Math.floor(Math.random() * stages.length);
+				if(!localStorage.getItem(`stage${stage}`)) {
+					localStorage.setItem(`stage${stage}`, 'used');
+					let isComplete = true;
+					for(let i = 0; i < stages.length; i ++) {
+						if(!localStorage.getItem(`stage${i}`)) {
+							isComplete = false;
+						}
+					}
+					if(isComplete) {
+						localStorage.clear();
+					}
+				}
+			}
 			block = stages[Math.floor(Math.random() * stages.length)].map(b => new Block(b.x, b.y, b.width, b.height));
 
 			for(let i = 0; i < 6; i ++) {
