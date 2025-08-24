@@ -197,6 +197,7 @@
 		//	block = stages[Math.floor(Math.random() * stages.length)].map(b => new Block(b.x, b.y, b.width, b.height));
 
 	const gridSize = 6;
+	const block = [];
 	const occupied = Array.from({ length: gridSize }, () => Array(gridSize).fill(false));
 
 	function isFree(x, y, w, h) {
@@ -219,36 +220,57 @@
 		block.push(new Block(x, y, w, h));
 	}
 
-	// 1. クリア状態（レーザーが通る）を作る
-	const laserX = Math.floor(Math.random() * gridSize);
-	const height = [2, 3][Math.floor(Math.random() * 2)];
-	const startY = 0;
-	if (startY + height > gridSize) return generateReverseStage();
-	if (!isFree(laserX, startY, 1, height)) return generateReverseStage();
-	placeBlock(laserX, startY, 1, height);
+	// 1. 遮るブロックを2つ配置（初期位置はレーザーライン外）
+	const blockerXs = [];
+	while (blockerXs.length < 2) {
+		const x = Math.floor(Math.random() * gridSize);
+		if (!blockerXs.includes(x)) blockerXs.push(x);
+	}
+
+	const blockerYs = [0, 1];
+	const blockerHeight = () => [2, 3][Math.floor(Math.random() * 2)];
+
+	for (let i = 0; i < 2; i++) {
+		const x = blockerXs[i];
+		const h = blockerHeight();
+		const y = blockerYs[i];
+		if (!isFree(x, y, 1, h)) return generateHardReverseStage();
+		placeBlock(x, y, 1, h);
+	}
 
 	// 2. 遮るブロックをレーザーラインに移動（逆生成）
-	const blocker = block[0];
-	const targetY = 2;
-	if (targetY + blocker.height > gridSize) return generateReverseStage();
+	for (let i = 0; i < 2; i++) {
+		const blocker = block[i];
+		const targetY = 2;
+		if (targetY + blocker.height > gridSize) return generateHardReverseStage();
 
-	// 移動先が空いているか確認
-	for (let j = targetY; j < targetY + blocker.height; j++) {
-		if (occupied[blocker.x][j]) return generateReverseStage();
+		// 移動先が空いているか確認
+		for (let j = targetY; j < targetY + blocker.height; j++) {
+			if (occupied[blocker.x][j]) return generateHardReverseStage();
+		}
+
+		// 移動：元の位置を空け、移動先を占有
+		for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
+			occupied[blocker.x][j] = false;
+		}
+		blocker.y = targetY;
+		for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
+			occupied[blocker.x][j] = true;
+		}
 	}
 
-	// 移動：元の位置を空け、移動先を占有
-	for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
-		occupied[blocker.x][j] = false;
-	}
-	blocker.y = targetY;
-	for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
-		occupied[blocker.x][j] = true;
+	// 3. 妨害ブロックを配置（遮るブロックの上下に置く）
+	for (let i = 0; i < 2; i++) {
+		const blocker = block[i];
+		const y = blocker.y - 1;
+		if (y >= 0 && isFree(blocker.x, y, 1, 1)) {
+			placeBlock(blocker.x, y, 1, 1); // 妨害ブロック（1x1）
+		}
 	}
 
-	// 3. 他のブロックを追加（サイズ制限付き）
+	// 4. 他のブロックを追加（サイズ制限付き）
 	let attempts = 0;
-	while (block.length < 10 && attempts < 100) {
+	while (block.length < 12 && attempts < 100) {
 		attempts++;
 		const isVertical = Math.random() < 0.5;
 		const size = [2, 3][Math.floor(Math.random() * 2)];
