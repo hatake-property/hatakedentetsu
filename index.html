@@ -220,9 +220,8 @@
 	}
 
 	// 1. クリア状態（レーザーが通る）を作る
-	// 遮るブロックを y=0〜1 に配置（後で y=2〜3 に動かす）
 	const laserX = Math.floor(Math.random() * gridSize);
-	const height = [2, 3, 4][Math.floor(Math.random() * 3)];
+	const height = [2, 3][Math.floor(Math.random() * 2)];
 	const startY = 0;
 	if (startY + height > gridSize) return generateReverseStage();
 	if (!isFree(laserX, startY, 1, height)) return generateReverseStage();
@@ -230,17 +229,29 @@
 
 	// 2. 遮るブロックをレーザーラインに移動（逆生成）
 	const blocker = block[0];
-	blocker.y = 2; // y=2に移動してレーザーを遮る
+	const targetY = 2;
+	if (targetY + blocker.height > gridSize) return generateReverseStage();
+
+	// 移動先が空いているか確認
+	for (let j = targetY; j < targetY + blocker.height; j++) {
+		if (occupied[blocker.x][j]) return generateReverseStage();
+	}
+
+	// 移動：元の位置を空け、移動先を占有
+	for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
+		occupied[blocker.x][j] = false;
+	}
+	blocker.y = targetY;
 	for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
 		occupied[blocker.x][j] = true;
 	}
 
-	// 3. 他のブロックを追加して、移動を少し難しくする
+	// 3. 他のブロックを追加（サイズ制限付き）
 	let attempts = 0;
 	while (block.length < 10 && attempts < 100) {
 		attempts++;
 		const isVertical = Math.random() < 0.5;
-		const size = [2, 3, 4][Math.floor(Math.random() * 3)];
+		const size = [2, 3][Math.floor(Math.random() * 2)];
 		let w = isVertical ? 1 : size;
 		let h = isVertical ? size : 1;
 		let x = Math.floor(Math.random() * (gridSize - w + 1));
