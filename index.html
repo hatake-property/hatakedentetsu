@@ -115,10 +115,10 @@
 
 		function checkNoBlock(x, y, width, height) {
 			for(let i = 0; i < block.length; i ++) {
-				if(!(x >= block[i].x + block[i].width || x + width <= block[i].x) || (x == block[i].x && width == block[i].width)) {
-					return false;
-				}
-				if(!(y >= block[i].y + block[i].height || y + height <= block[i].y) || (y == block[i].y && height == block[i].height)) {
+				const b = block[i];
+				const overlapX = x < b.x + b.width && x + width > b.x;
+				const overlapY = y < b.y + b.height && y + height > b.y;
+				if(overlapX && overlapY) {
 					return false;
 				}
 			}
@@ -232,14 +232,14 @@
 					let canUp = true;
 					let canDown = true;
 					if(b.y == 0) {
-						if(!checkNoBlock(block.x, block.y - 1, 1, 1)) {
+						if(!checkNoBlock(x, y - 1, 1, 1)) {
 							canUp = false;
 						}
 					} else {
 						canDown = false;
 					}
 					if(b.y == 5) {
-						if(!checkNoBlock(block.x, block.y + 1, 1, 1)) {
+						if(!checkNoBlock(x, y + 1, 1, 1)) {
 							canDown = false;
 						}
 					} else {
