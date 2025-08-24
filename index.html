@@ -98,6 +98,10 @@
 		let isGameClear = false;
 		var color = ['aqua', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'yellow'];
 		var laser = [];
+		const stages = [
+			[new Block(0, 0, 1, 2), new Block(1, 0, 1, 2), new Block(2, 0, 2, 1), new Block(4, 0, 1, 2), new Block(2, 1, 2, 1), new Block(2, 2, 1, 2), new Block(3, 2, 1, 3), new Block(4, 3, 1, 2), new Block(2, 4, 1, 2)],
+			[new Block(2, 1, 1, 2), new Block(4, 1, 1, 3), new Block(5, 2, 1, 2), new Block(0, 3, 3, 1), new Block(0, 4, 1, 2), new Block(1, 4, 1, 2), new Block(2, 4, 1, 2), new Block(4, 4, 2, 1), new Block(4, 5, 2, 1)],
+		];
 
 		class Block {
 			constructor(x, y, width, height) {
@@ -111,18 +115,6 @@
 				const foreground = document.getElementById('foreground').getContext('2d');
 				foreground.fillRect(this.x * n, this.y * n, this.width * n, this.height * n);
 			}
-		}
-
-		function checkNoBlock(x, y, width, height) {
-			for(let i = 0; i < block.length; i ++) {
-				const b = block[i];
-				const overlapX = x < b.x + b.width && x + width > b.x;
-				const overlapY = y < b.y + b.height && y + height > b.y;
-				if(overlapX && overlapY) {
-					return false;
-				}
-			}
-			return true;
 		}
 
 		function drow() {
@@ -175,117 +167,7 @@
 				color[j] = temp;
 			}
 
-			blockLength = Math.floor(Math.random() * 6) + 6;
-			for(let i = 0; i < blockLength; i ++) {
-				let x;
-				let y;
-				let width;
-				let height;
-				switch(Math.floor(Math.random() * 2)) {
-					case 0:
-						x = Math.floor(Math.random() * 6);
-						width = 1;
-						switch(Math.floor(Math.random() * 3)) {
-							case 0:
-								y = 0;
-								height = 2;
-								break;
-							case 1:
-								y = 3;
-								if(Math.floor(Math.random() * 2) == 0) {
-									height = 2;
-								} else {
-									height = 3;
-								}
-								break;
-							case 2:
-								y = 4;
-								height = 2;
-								break;
-						}
-						break;
-					case 1:
-						x = Math.floor(Math.random() * 5)
-						y = Math.floor(Math.random() * 5)
-						height = 1;
-						y = y == 2 ? 5 : y;
-						if(x == 4) {
-							width = 2;
-						} else {
-							if(Math.floor(Math.random() * 2) == 0) {
-								width = 2;
-							} else {
-								width = 3;
-							}
-						}
-						break;
-				}
-				if(!checkNoBlock(x, y, width, height)) {
-					i --;
-				} else {
-					block[i] = new Block(x, y, width, height);
-				}
-			}
-			for(let i = 0; i < 100; i ++) {
-				let b = block[Math.floor(Math.random() * block.length)];
-				if(b.width == 1) {
-					let canUp = true;
-					let canDown = true;
-					if(b.y == 0) {
-						if(!checkNoBlock(x, y - 1, 1, 1)) {
-							canUp = false;
-						}
-					} else {
-						canDown = false;
-					}
-					if(b.y == 5) {
-						if(!checkNoBlock(x, y + 1, 1, 1)) {
-							canDown = false;
-						}
-					} else {
-						canDown = false;
-					}
-					if(canUp && !canDown) {
-						b.y --;
-					} else if(!canUp && canDown) {
-						b.y ++;
-					} else if(canUp && canDown) {
-						if(Math.floor(Math.random() * 2) == 0) {
-							b.y --;
-						} else {
-							b.y ++;
-						}
-					}
-				} else {
-					let canLeft = true;
-					let canRight = true;
-					if(b.x == 0) {
-						if(!checkNoBlock(b.x - 1, b.y, 1, 1)) {
-							canLeft = false;
-						}
-					} else {
-						canLeft = false;
-					}
-					if(b.x == 5) {
-						if(!checkNoBlock(b.x + 1, b.y, 1, 1)) {
-							canRight = false;
-						}
-					} else {
-						canRight = false;
-					}
-					if(canLeft && !canRight) {
-						b.x --;
-					} else if(!canLeft && canRight) {
-						b.x ++;
-					} else if(canLeft && canRight) {
-						if(Math.floor(Math.random() * 2) == 0) {
-							b.x --;
-						} else {
-							b.x ++;
-						}
-					}
-				}
-			}
+			block = stages[Math.floor(Math.random() * stages.length)];
 
 			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
