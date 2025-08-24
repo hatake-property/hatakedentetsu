@@ -113,6 +113,18 @@
 			}
 		}
 
+		function checkNoBlock(x, y, width, height) {
+			for(let i = 0; i < block.length; i ++) {
+				if(!(x >= block[i].x + block[i].width || x + width <= block[i].x) || (x == block[i].x && width == block[i].width)) {
+					return false;
+				}
+				if(!(y >= block[i].y + block[i].height || y + height <= block[i].y) || (y == block[i].y && height == block[i].height)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		function drow() {
 			const foreCanvas = document.getElementById('foreground')
 			const foreground = foreCanvas.getContext('2d');
@@ -163,20 +175,118 @@
 				color[j] = temp;
 			}
 
-block = [
-  new Block(0, 2, 2, 1),  // 0: 横長
-  new Block(2, 2, 2, 1),  // 1: 横長
-  new Block(4, 2, 2, 1),  // 2: 横長
-  new Block(0, 0, 1, 2),  // 3: 縦長
-  new Block(2, 0, 1, 2),  // 4: 縦長
-  new Block(3, 3, 1, 2),  // 5: 縦長
-  new Block(4, 0, 1, 2),  // 6: 縦長
-  new Block(5, 3, 1, 2),  // 7: 縦長
-  new Block(1, 4, 2, 1),  // 8: 横長
-  new Block(0, 5, 1, 1),  // 9: 縦長
-  new Block(3, 5, 2, 1),  // 10: 横長
-];
-			
+			blockLength = Math.floor(Math.random() * 6) + 6;
+			for(let i = 0; i < blockLength; i ++) {
+				let x;
+				let y;
+				let width;
+				let height;
+				switch(Math.floor(Math.random() * 2)) {
+					case 0:
+						x = Math.floor(Math.random() * 6);
+						width = 1;
+						switch(Math.floor(Math.random() * 3)) {
+							case 0:
+								y = 0;
+								height = 2;
+								break;
+							case 1:
+								y = 3;
+								if(Math.floor(Math.random() * 2) == 0) {
+									height = 2;
+								} else {
+									height = 3;
+								}
+								break;
+							case 2:
+								y = 4;
+								height = 2;
+								break;
+						}
+						break;
+					case 1:
+						x = Math.floor(Math.random() * 5)
+						y = Math.floor(Math.random() * 5)
+						height = 1;
+						y = y == 2 ? 5 : y;
+						if(x == 4) {
+							width = 2;
+						} else {
+							if(Math.floor(Math.random() * 2) == 0) {
+								width = 2;
+							} else {
+								width = 3;
+							}
+						}
+						break;
+				}
+				if(!checkNoBlock(x, y, width, height)) {
+					i --;
+				} else {
+					block[i] = new Block(x, y, width, height);
+				}
+			}
+			for(let i = 0; i < 100; i ++) {
+				let b = block[Math.floor(Math.random() * block.length)];
+				if(b.width == 1) {
+					let canUp = true;
+					let canDown = true;
+					if(b.y == 0) {
+						if(!checkNoBlock(block.x, block.y - 1, 1, 1)) {
+							canUp = false;
+						}
+					} else {
+						canDown = false;
+					}
+					if(b.y == 5) {
+						if(!checkNoBlock(block.x, block.y + 1, 1, 1)) {
+							canDown = false;
+						}
+					} else {
+						canDown = false;
+					}
+					if(canUp && !canDown) {
+						b.y --;
+					} else if(!canUp && canDown) {
+						b.y ++;
+					} else if(canUp && canDown) {
+						if(Math.floor(Math.random() * 2) == 0) {
+							b.y --;
+						} else {
+							b.y ++;
+						}
+					}
+				} else {
+					let canLeft = true;
+					let canRight = true;
+					if(b.x == 0) {
+						if(!checkNoBlock(b.x - 1, b.y, 1, 1)) {
+							canLeft = false;
+						}
+					} else {
+						canLeft = false;
+					}
+					if(b.x == 5) {
+						if(!checkNoBlock(b.x + 1, b.y, 1, 1)) {
+							canRight = false;
+						}
+					} else {
+						canRight = false;
+					}
+					if(canLeft && !canRight) {
+						b.x --;
+					} else if(!canLeft && canRight) {
+						b.x ++;
+					} else if(canLeft && canRight) {
+						if(Math.floor(Math.random() * 2) == 0) {
+							b.x --;
+						} else {
+							b.x ++;
+						}
+					}
+				}
+			}
+
 			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
 			}
