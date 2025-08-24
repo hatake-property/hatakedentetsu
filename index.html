@@ -197,7 +197,6 @@
 		//	block = stages[Math.floor(Math.random() * stages.length)].map(b => new Block(b.x, b.y, b.width, b.height));
 
 	const gridSize = 6;
-	const block = [];
 	const occupied = Array.from({ length: gridSize }, () => Array(gridSize).fill(false));
 
 	function isFree(x, y, w, h) {
