@@ -196,51 +196,59 @@
 		//	}
 		//	block = stages[Math.floor(Math.random() * stages.length)].map(b => new Block(b.x, b.y, b.width, b.height));
 
-		const gridSize = 6;
-		const occupied = Array.from({ length: gridSize }, () => Array(gridSize).fill(false));
+	const gridSize = 6;
+	const occupied = Array.from({ length: gridSize }, () => Array(gridSize).fill(false));
 
-		function isFree(x, y, w, h) {
-			for (let i = x; i < x + w; i++) {
-				for (let j = y; j < y + h; j++) {
-					if (i < 0 || i >= gridSize || j < 0 || j >= gridSize || occupied[i][j]) {
-						return false;
-					}
+	function isFree(x, y, w, h) {
+		for (let i = x; i < x + w; i++) {
+			for (let j = y; j < y + h; j++) {
+				if (i < 0 || i >= gridSize || j < 0 || j >= gridSize || occupied[i][j]) {
+					return false;
 				}
 			}
-			return true;
 		}
+		return true;
+	}
 
-		function placeBlock(x, y, w, h) {
-			for (let i = x; i < x + w; i++) {
-				for (let j = y; j < y + h; j++) {
-					occupied[i][j] = true;
-				}
-			}
-			block.push(new Block(x, y, w, h));
-		}
-
-		// 1. レーザーを遮るブロックを1つ配置（縦長、横1マス）
-		const laserY = 2;
-		const laserX = Math.floor(Math.random() * gridSize);
-		const height = [2, 3, 4][Math.floor(Math.random() * 3)];
-		if (laserY + height > gridSize) return generateStage(); // 再試行
-		if (!isFree(laserX, laserY, 1, height)) return generateStage();
-		placeBlock(laserX, laserY, 1, height);
-
-		// 2. 他のブロックをランダムに配置（最大10個）
-		let attempts = 0;
-		while (block.length < 10 && attempts < 100) {
-			attempts++;
-			const isVertical = Math.random() < 0.5;
-			const size = [2, 3, 4][Math.floor(Math.random() * 3)];
-			let w = isVertical ? 1 : size;
-			let h = isVertical ? size : 1;
-			let x = Math.floor(Math.random() * (gridSize - w + 1));
-			let y = Math.floor(Math.random() * (gridSize - h + 1));
-			if (isFree(x, y, w, h)) {
-				placeBlock(x, y, w, h);
+	function placeBlock(x, y, w, h) {
+		for (let i = x; i < x + w; i++) {
+			for (let j = y; j < y + h; j++) {
+				occupied[i][j] = true;
 			}
 		}
+		block.push(new Block(x, y, w, h));
+	}
+
+	// 1. クリア状態（レーザーが通る）を作る
+	// 遮るブロックを y=0〜1 に配置（後で y=2〜3 に動かす）
+	const laserX = Math.floor(Math.random() * gridSize);
+	const height = [2, 3, 4][Math.floor(Math.random() * 3)];
+	const startY = 0;
+	if (startY + height > gridSize) return generateReverseStage();
+	if (!isFree(laserX, startY, 1, height)) return generateReverseStage();
+	placeBlock(laserX, startY, 1, height);
+
+	// 2. 遮るブロックをレーザーラインに移動（逆生成）
+	const blocker = block[0];
+	blocker.y = 2; // y=2に移動してレーザーを遮る
+	for (let j = blocker.y; j < blocker.y + blocker.height; j++) {
+		occupied[blocker.x][j] = true;
+	}
+
+	// 3. 他のブロックを追加して、移動を少し難しくする
+	let attempts = 0;
+	while (block.length < 10 && attempts < 100) {
+		attempts++;
+		const isVertical = Math.random() < 0.5;
+		const size = [2, 3, 4][Math.floor(Math.random() * 3)];
+		let w = isVertical ? 1 : size;
+		let h = isVertical ? size : 1;
+		let x = Math.floor(Math.random() * (gridSize - w + 1));
+		let y = Math.floor(Math.random() * (gridSize - h + 1));
+		if (isFree(x, y, w, h)) {
+			placeBlock(x, y, w, h);
+		}
+	}
 
 			for(let i = 0; i < 6; i ++) {
 				laser[i] = false;
